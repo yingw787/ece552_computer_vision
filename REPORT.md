@@ -83,27 +83,33 @@ args = vars(ap.parse_args())
 
 # load the image, clone it for output, and then convert it to grayscale
 image = cv2.imread(args["image"])
-output = image.copy()
-gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-# detect circles in the image
-circles = cv2.HoughCircles(gray, cv2.cv.CV_HOUGH_GRADIENT, 1.2, 100)
- 
-# ensure at least some circles were found
-if circles is not None:
-	# convert the (x, y) coordinates and radius of the circles to integers
-	circles = np.round(circles[0, :]).astype("int")
- 
-	# loop over the (x, y) coordinates and radius of the circles
-	for (x, y, r) in circles:
-		# draw the circle in the output image, then draw a rectangle
-		# corresponding to the center of the circle
-		cv2.circle(output, (x, y), r, (0, 255, 0), 4)
-		cv2.rectangle(output, (x - 5, y - 5), (x + 5, y + 5), (0, 128, 255), -1)
- 
-	# show the output image
-	cv2.imshow("output", np.hstack([image, output]))
-	cv2.waitKey(0)
+@profile 
+def houghcircles(): 
+	output = image.copy()
+	gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+	# detect circles in the image
+	circles = cv2.HoughCircles(gray, cv2.cv.CV_HOUGH_GRADIENT, 1.2, 100)
+	 
+	# ensure at least some circles were found
+	if circles is not None:
+		# convert the (x, y) coordinates and radius of the circles to integers
+		circles = np.round(circles[0, :]).astype("int")
+	 
+		# loop over the (x, y) coordinates and radius of the circles
+		for (x, y, r) in circles:
+			# draw the circle in the output image, then draw a rectangle
+			# corresponding to the center of the circle
+			cv2.circle(output, (x, y), r, (0, 255, 0), 4)
+			cv2.rectangle(output, (x - 5, y - 5), (x + 5, y + 5), (0, 128, 255), -1)
+	 
+		# show the output image
+		cv2.imshow("output", np.hstack([image, output]))
+		cv2.waitKey(0)
+		
+houghcircles() 
+
 ```
 
 
@@ -326,4 +332,34 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
 
 houghcircles.py/memory 
 
+```
+Filename: houghcircles.py
+
+Line #    Mem usage    Increment   Line Contents
+================================================
+    16   27.891 MiB    0.000 MiB   @profile 
+    17                             def houghcircles(): 
+    18   27.898 MiB    0.008 MiB   	output = image.copy()
+    19   28.234 MiB    0.336 MiB   	gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    20                             
+    21                             	# detect circles in the image
+    22   30.695 MiB    2.461 MiB   	circles = cv2.HoughCircles(gray, cv2.cv.CV_HOUGH_GRADIENT, 1.2, 100)
+    23                             	 
+    24                             	# ensure at least some circles were found
+    25   30.695 MiB    0.000 MiB   	if circles is not None:
+    26                             		# convert the (x, y) coordinates and radius of the circles to integers
+    27   30.750 MiB    0.055 MiB   		circles = np.round(circles[0, :]).astype("int")
+    28                             	 
+    29                             		# loop over the (x, y) coordinates and radius of the circles
+    30   30.805 MiB    0.055 MiB   		for (x, y, r) in circles:
+    31                             			# draw the circle in the output image, then draw a rectangle
+    32                             			# corresponding to the center of the circle
+    33   30.781 MiB   -0.023 MiB   			cv2.circle(output, (x, y), r, (0, 255, 0), 4)
+    34   30.805 MiB    0.023 MiB   			cv2.rectangle(output, (x - 5, y - 5), (x + 5, y + 5), (0, 128, 255), -1)
+    35                             	 
+    36                             		# show the output image
+    37   43.695 MiB   12.891 MiB   		cv2.imshow("output", np.hstack([image, output]))
+    38   49.688 MiB    5.992 MiB   		cv2.waitKey(0)
+
+```
 
