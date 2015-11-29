@@ -19,7 +19,7 @@ int main(int argc, char** argv)
   /// Convert it to gray
   cvtColor( src, src_gray, CV_BGR2GRAY );
 
-  vector<Vec3f> circles;
+  std::vector<Vec3f> circles;
 
   /// Apply the Hough Transform to find the circles
   HoughCircles( src_gray, circles, CV_HOUGH_GRADIENT, 1, src_gray.rows/8, 200, 100, 0, 0 );
