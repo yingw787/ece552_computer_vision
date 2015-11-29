@@ -13,13 +13,15 @@ args = vars(ap.parse_args())
 
 # load the image, clone it for output, and then convert it to grayscale
 image = cv2.imread(args["image"])
-gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-sobelX = cv2.Sobel(gray, cv2.CV_64F, 1, 0)
-sobelY = cv2.Sobel(gray, cv2.CV_64F, 0, 1)
 
-sobelCombined = cv2.bitwise_or(sobelX, sobelY)
+def sobel(): 
+	gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+	sobelX = cv2.Sobel(gray, cv2.CV_64F, 1, 0)
+	sobelY = cv2.Sobel(gray, cv2.CV_64F, 0, 1)
+	sobelCombined = cv2.bitwise_or(sobelX, sobelY)
+	cv2.imshow("image", image)
+	cv2.imshow("output", sobelCombined)
+	cv2.waitKey(0)
 
-cv2.imshow("image", image)
-cv2.imshow("output", sobelCombined)
-cv2.waitKey(0)
+sobel() 

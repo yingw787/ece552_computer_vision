@@ -61,7 +61,7 @@ Architectural Discussion & Conclusion
 Bibliography
 -------------
 
-
+https://bitbucket.org/yingw787/ece552_computer_vision/commits/branch/master 
 
 Appendix A: Source Code
 -------------
@@ -283,3 +283,47 @@ slic.ocl
 ```
 
 ```
+
+Appendix B: Timing/Memory Analyses
+-------------
+
+houghcircles.py/timing 
+
+```
+Timer unit: 1e-06 s
+
+Total time: 3.50474 s
+File: houghcircles.py
+Function: houghcircles at line 16
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+    16                                           @profile 
+    17                                           def houghcircles(): 
+    18         1           62     62.0      0.0  	output = image.copy()
+    19         1          299    299.0      0.0  	gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    20                                           
+    21                                           	# detect circles in the image
+    22         1         7751   7751.0      0.2  	circles = cv2.HoughCircles(gray, cv2.cv.CV_HOUGH_GRADIENT, 1.2, 100)
+    23                                           	 
+    24                                           	# ensure at least some circles were found
+    25         1            2      2.0      0.0  	if circles is not None:
+    26                                           		# convert the (x, y) coordinates and radius of the circles to integers
+    27         1           82     82.0      0.0  		circles = np.round(circles[0, :]).astype("int")
+    28                                           	 
+    29                                           		# loop over the (x, y) coordinates and radius of the circles
+    30         2           17      8.5      0.0  		for (x, y, r) in circles:
+    31                                           			# draw the circle in the output image, then draw a rectangle
+    32                                           			# corresponding to the center of the circle
+    33         1           96     96.0      0.0  			cv2.circle(output, (x, y), r, (0, 255, 0), 4)
+    34         1           35     35.0      0.0  			cv2.rectangle(output, (x - 5, y - 5), (x + 5, y + 5), (0, 128, 255), -1)
+    35                                           	 
+    36                                           		# show the output image
+    37         1        67848  67848.0      1.9  		cv2.imshow("output", np.hstack([image, output]))
+    38         1      3428553 3428553.0     97.8  		cv2.waitKey(0)
+
+```
+
+houghcircles.py/memory 
+
+
