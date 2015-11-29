@@ -15,7 +15,8 @@ args = vars(ap.parse_args())
 # load the image and convert it to a floating point data type
 image = img_as_float(io.imread(args["image"]))
  
-def slic(): 
+@profile 
+def segmentMaker(): 
 	numSegments = 100; 
 	# apply SLIC and extract (approximately) the supplied number
 	# of segments
@@ -28,5 +29,5 @@ def slic():
 	# show the plots
 	plt.show()
 
-slic() 
+segmentMaker() 
 

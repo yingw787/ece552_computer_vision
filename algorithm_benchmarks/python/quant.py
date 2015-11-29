@@ -16,14 +16,15 @@ args = vars(ap.parse_args())
 # load the image
 image = cv2.imread(args["image"])
 
-def quant(): 
+@profile 
+def quant(image): 
 	# find the dimensions of the image 
 	r = 600.0 / image.shape[1]
 	dim = (600, int(image.shape[0] * r))
 	# resize the image 
 	image = cv2.resize(image, dim, interpolation=cv2.INTER_AREA)
 	# get image width and height 
-	(h, w) = image.shape[:2]
+	(h, w) = image.shape[:2]	
 	# convert the image from the RGB color space to the L*a*b*
 	# color space -- since we will be clustering using k-means
 	# which is based on the euclidean distance, we'll use the
@@ -48,4 +49,4 @@ def quant():
 	cv2.imshow("image", np.hstack([image, quant]))
 	cv2.waitKey(0)
 
-quant() 
+quant(image) 
