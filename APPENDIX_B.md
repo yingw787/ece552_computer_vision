@@ -35,7 +35,7 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
     36                                                  # show the output image
     37         1       129733 129733.0      5.8         cv2.imshow("output", np.hstack([image, output]))
     38         1      2089908 2089908.0     93.8        cv2.waitKey(0)
-    
+
 ```
 
 houghcircles.py/memory 
@@ -225,7 +225,7 @@ Line #      Hits         Time  Per Hit   % Time  Line Contents
     28         1           73     73.0      0.0     plt.axis("off")
     29                                              # show the plots
     30         1      3292667 3292667.0     62.3    plt.show()
-
+```
 
 slic.py/memory 
 
