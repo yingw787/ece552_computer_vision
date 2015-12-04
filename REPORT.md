@@ -24,7 +24,7 @@ Circular Hough Transforms involve trigonometric calculations and thus may involv
 An example of the Circular Hough Transform is given below: 
 
 <p align = "center">
-	<img src = "https://github.com/yingw787/ece552_computer_vision/blob/master/algorithm_benchmarks/python/houghcircles_example.png" />
+	<img src = "https://github.com/yingw787/ece552_computer_vision/blob/master/algorithm_benchmarks/python/houghcircles_result.jpg" />
 </p>
 
 ####Sobel Edge Detection  
