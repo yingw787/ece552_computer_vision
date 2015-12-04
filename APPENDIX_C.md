@@ -1,6 +1,32 @@
 Appendix C: CPU Information 
 -------------
 
+lscpu 
+
+```
+Architecture:          x86_64
+CPU op-mode(s):        32-bit, 64-bit
+Byte Order:            Little Endian
+CPU(s):                2
+On-line CPU(s) list:   0,1
+Thread(s) per core:    2
+Core(s) per socket:    1
+Socket(s):             1
+NUMA node(s):          1
+Vendor ID:             AuthenticAMD
+CPU family:            21
+Model:                 19
+Stepping:              1
+CPU MHz:               1400.000
+BogoMIPS:              5789.46
+Virtualization:        AMD-V
+L1d cache:             16K
+L1i cache:             64K
+L2 cache:              1024K
+NUMA node0 CPU(s):     0,1
+```
+
+
 sudo lshw 
 
 ```
