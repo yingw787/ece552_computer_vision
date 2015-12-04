@@ -1,8 +1,7 @@
 Appendix D: PAPI preset events available on Lenovo Thinkpad Edge E545
 -------------
 
-cd papi-5.4.1/src/utils/
-./papi_avail
+cd papi-5.4.1/src/utils/ && ./papi_avail
 
 ```
 Available PAPI preset and user defined events plus hardware information.
