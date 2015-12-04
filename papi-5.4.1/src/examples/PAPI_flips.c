@@ -22,53 +22,57 @@
 
 main()
 { 
-  float real_time, proc_time,mflips;
-  long long flpins;
-  float ireal_time, iproc_time, imflips;
-  long long iflpins;
-  int retval;
-
-  /***********************************************************************
-   * if PAPI_FP_INS is a derived event in your platform, then your       * 
-   * platform must have at least three counters to support PAPI_flips,   *
-   * because PAPI needs one counter to cycles. So in UltraSparcIII, even *
-   * the platform supports PAPI_FP_INS, but UltraSparcIII only have two  *
-   * available hardware counters and PAPI_FP_INS is a derived event in   *
-   * this platform, so PAPI_flops returns an error.                      *
-   ***********************************************************************/
-
-  if((retval=PAPI_flips(&ireal_time,&iproc_time,&iflpins,&imflips)) < PAPI_OK)
-  { 
-    printf("Could not initialise PAPI_flips \n");
-    printf("Your platform may not support floating point instruction event.\n");    printf("retval: %d\n", retval);
-    exit(1);
-  }
-
-  your_slow_code();
-
   
-  if((retval=PAPI_flips( &real_time, &proc_time, &flpins, &mflips))<PAPI_OK)
-  {    
-    printf("retval: %d\n", retval);
-    exit(1);
+  int numberOfElements = 4;
+
+
+  int Events[4] = { 0 }; // array size = numberOfElements
+
+  Events[0] = PAPI_TLB_TL;
+  Events[1] = PAPI_TOT_CYC;
+  Events[2] = PAPI_BR_INS;
+  Events[3] = PAPI_FAD_INS;
+  long long values[numberOfElements];
+
+
+  printf("\n\n\n");
+
+
+
+  if (PAPI_start_counters(Events, numberOfElements) != PAPI_OK)
+  {
+    printf("not okay to start");
   }
 
+    // include function here 
+    printf("Hello World!\n");
+    printf("Hello World!\n");
+    printf("Hello World!\n");
+    printf("Hello World!\n");
+    printf("Hello World!\n");
+    printf("Hello World!\n");
+    printf("Hello World!\n");
+    printf("Hello World!\n");
+    printf("Hello World!\n");
+    printf("Hello World!\n");
 
-  printf("Real_time: %f Proc_time: %f Total flpins: %lld MFLIPS: %f\n", 
-         real_time, proc_time,flpins,mflips);
+
+  if (PAPI_stop_counters(values, numberOfElements) != PAPI_OK)
+  {
+    printf("not okay to stop");
+  }
+
+  PAPI_read_counters(values, numberOfElements);
+
+
+  printf("Total TLB misses: %llu\n", values[0]);
+  printf("Total instruction cycles: %llu\n", values[1]);
+  printf("Branch instructions: %llu\n", values[2]);
+  printf("Floating point add instructions: %llu\n", values[3]);
+
+
+
+  printf("\n\n\n");
 
   exit(0);
 }
-
-int your_slow_code()
-{
-  int i;
-  double  tmp=1.1;
-
-  for(i=1; i<2000; i++)
-  { 
-    tmp=(tmp+100)/i;
-  }
-  return 0;
-}
-

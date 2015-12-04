@@ -1,5 +1,7 @@
 #include <iostream>
-#include "papi.h"
+#include "/usr/local/include/papi.h"
+// #include "/usr/local/lib/libpapi.a"
+// #include "/usr/local/lib/libpapi.so"
 #include <stdio.h>
 
 int PAPI_start_counters(int *events, int array_len); /**< start counting hardware events */
