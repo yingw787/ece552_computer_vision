@@ -24,7 +24,7 @@ Circular Hough Transforms involve trigonometric calculations and thus may involv
 An example of the Circular Hough Transform is given below: 
 
 <p align = "center">
-	<img src = "https://github.com/yingw787/ece552_computer_vision/blob/master/algorithm_benchmarks/python/houghcircles_result.jpg" />
+	<img src = "https://github.com/yingw787/ece552_computer_vision/blob/master/algorithm_benchmarks/python/houghcircles_result.png" />
 </p>
 
 ####Sobel Edge Detection  
@@ -34,6 +34,10 @@ The Sobel operator is a discrete differentiation operator. It produces a gradien
 This image processing algorithm can serve as a worthy benchmark since convolution involves multiplication and integration over every kernel in the image; examining performance counters may indicate whether Sobel is a performance-intensive task and act as a bottleneck in speedups. In addition, to what degree the algorithm can be parallelized remains an interesting question.
 
 An example of the Sobel Edge Detection is given below:  
+
+<p align = "center">
+	<img src = "https://github.com/yingw787/ece552_computer_vision/blob/master/algorithm_benchmarks/python/sobel_result.png" />
+</p>
 
 ### Planned Simulation Steps 
 
