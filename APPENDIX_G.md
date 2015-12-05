@@ -1,6 +1,8 @@
 Appendix G: PAPI_flips.c test output  
 -------------
 
+cd papi-5.4.1/src/examples; 
+clear; make; ./PAPI_flips
 ```
 
 
