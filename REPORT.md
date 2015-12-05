@@ -68,11 +68,13 @@ Running and deciding on image processing algorithm material was relatively trivi
 
 After the Python programs were tested, they were profiled with [line_profiler](https://github.com/rkern/line_profiler) and [memory_profiler](https://github.com/fabianp/memory_profiler). This provides a line-by-line detailing of how many times a function is called, and how much memory each function call takes up. The results of this testing for the Python benchmark can be seen in [Appendix B](https://github.com/yingw787/ece552_computer_vision/blob/master/APPENDIX_B.md). 
 
-From the results in Appendix B, 
+From the results in Appendix B, one notes that the calls to cv2.Sobel took about 700 to 800 milliseconds, while memory-wise the calls took about 0.5 to 07 MiB. 
+
+
 
 One unanticipated issue resulted from the fact that IA64-Linux only specifies 4 48-bit performance counters; any more specified within a given process and executed would produce garbage output. As from Appendix D, there are 40 preset events that are available from PAPI on the specified hardware. 
 
-Ultimately, the primary difficulty resulted in the limited amount of time available in order to conduct the experiment, as well as shifting priorities due to unprocessed difficulties. Given a possible redo, the author would limit himself to 
+Ultimately, the primary difficulty resulted in the limited amount of time available in order to conduct the experiment, as well as shifting priorities due to unprocessed difficulties. Given a possible redo, the author may examine himself to analyzing a purely architectural aspect of GPU acceleration, for example DMA for GPUs, that have a clearly defined scope, easy measurability, as well as architectural significance. 
 
 Additional Exploration
 -------------
