@@ -70,7 +70,7 @@ After the Python programs were tested, they were profiled with [line_profiler](h
 
 From the results in Appendix B, one notes that the calls to cv2.Sobel took about 700 to 800 milliseconds, while memory-wise the calls took about 0.5 to 07 MiB. 
 
-
+Unfortunately, 
 
 One unanticipated issue resulted from the fact that IA64-Linux only specifies 4 48-bit performance counters; any more specified within a given process and executed would produce garbage output. As from Appendix D, there are 40 preset events that are available from PAPI on the specified hardware. 
 
@@ -88,9 +88,19 @@ Additional Exploration
 Bibliography
 -------------
 
+Dongarra, John, Kevin London, Shirley Moore, Phillip Mucci, and Dan Terpstra. "Using PAPI for Hardware Performance Monitoring on Linux Systems." Netlib.org (2015): n. pag. Netlib.org. Web. 04 Dec. 2015. <http://www.netlib.org/utk/people/JackDongarra/PAPERS/papi-linux.pdf>.
+
+Duda, Richard O., and Peter E. Hart. "Use of the Hough Transform to Detect Lines and Circles in Pictures." Graphics and Image Processing (1972): n. pag. Web. <http://www.cse.unr.edu/~bebis/CS474/Handouts/HoughTransformPaper.pdf>.
+
+Maini, Raman, and Himanshu Aggarwal. "Study and Comparison of Various Edge Detection Algorithms." International Journal of Image Processing 3.1 (n.d.): n. pag. Web. <http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.301.927&rep=rep1&type=pdf>.
+
 Mucci, Phillip. "Performance Monitoring with PAPI." Dr. Dobb's World of Software Development. N/A, 01 June 2005. Web. 04 Dec. 2015.
 
 "OpenCV 2.4.11 Documentation." OpenCV. OpenCV, 25 Feb. 2015. Web. 04 Dec. 2015.
+
+"PAPI." PAPI. Innovative Computing Laboratory, University of Tennessee, 3 Feb. 2015. Web. 04 Dec. 2015.
+
+Weaver, Vincent M., Matt Johnson, Kiran Kasichayanula, James Ralph, Piotr Luszczek, Dan Terpstra, and Shirley Moore. "Measuring Energy and Power with PAPI." 2012 41st International Conference on Parallel Processing Workshops (2012): n. pag. Web.
 
 
 
