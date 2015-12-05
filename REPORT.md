@@ -6,6 +6,8 @@ Introduction
 
 Today, people increasingly rely on image processing algorithms. Given the increasing usage of image processing as well as demand for at least maintaining the same performance for image processing applications, demand for faster and higher performing algorithms will surely rise. Having a means in order to track performance of image processing algorithms will not only ensure that the optimizations promised by image processing are fulfilled by the hardware, but that slimmer programs will function on older-generation hardware helping to ensure backwards compatibility, among other benefits.  
 
+This paper describes the effort to benchmark image processing algorithms with PAPI, an open-source performance counter API, and infer the performance behind each of 
+
 Overview 
 -------------
 
@@ -39,6 +41,12 @@ An example of the Sobel Edge Detection is given below:
 	<img src = "https://github.com/yingw787/ece552_computer_vision/blob/master/algorithm_benchmarks/python/sobel_result.png" />
 </p>
 
+### PAPI 
+
+PAPI (Performance Analysis Programming Interface) is a set of APIs that allow an application access to the underlying hardware. Two APIs are given: one a high-level API that allows general access to commonly available performance counters, and a low-level API that allows access to more hardware-specific performance counters. 
+
+PAPI access on listed hardware is found in [Appendix D](https://github.com/yingw787/ece552_computer_vision/blob/master/APPENDIX_D.md) and [Appendix E](https://github.com/yingw787/ece552_computer_vision/blob/master/APPENDIX_E.md). 
+
 ### Planned Simulation Steps 
 
 - Determine the types of image processing algorithms to test 
@@ -47,16 +55,19 @@ An example of the Sobel Edge Detection is given below:
 - Install and run/verify PAPI 
 - Run computer vision algorithms with PAPI 
 
-### Hardware description 
+### System description 
 
-The computer used to run the performance is a Lenovo Thinkpad Edge E545; it contains 
+The computer used to run the performance is a Lenovo Thinkpad Edge E545; it contains an AMD A6-5350M APU, that contains 2 cores, each with 2 threads. The APU contains a 16KB level 1 data cache, a 64KB level 1 instruction cache, and a 1MB unified Level 2 cache. The computer runs Ubuntu 14.04. 
 
-The full description of the hardware, including off-chip components, is available in full in Appendix C. 
+The full description of the hardware, including off-chip components, is available in full in [Appendix C](https://github.com/yingw787/ece552_computer_vision/blob/master/APPENDIX_C.md). 
 
-Results and Discussion
+Process and Discussion
 -------------
 
+Running and deciding on image processing algorithm material was relatively trivial; commits to describe process are listed [here](https://bitbucket.org/yingw787/ece552_computer_vision/commits/branch/master ). This process involved learning the OpenCV API. 
 
+
+One unanticipated issue resulted from the fact that IA64-Linux only specifies 4 48-bit performance counters; any more specified within a given process and executed would produce garbage output. This meant that if enough 
 
 Additional Exploration
 -------------
@@ -65,12 +76,15 @@ Additional Exploration
 #### gem5 
 #### gem5-gpu 
 
-### OpenCL 
-
 
 
 Bibliography
 -------------
 
-https://bitbucket.org/yingw787/ece552_computer_vision/commits/branch/master 
+Mucci, Phillip. "Performance Monitoring with PAPI." Dr. Dobb's World of Software Development. N/A, 01 June 2005. Web. 04 Dec. 2015.
+
+"OpenCV 2.4.11 Documentation." OpenCV. OpenCV, 25 Feb. 2015. Web. 04 Dec. 2015.
+
+
+
 
