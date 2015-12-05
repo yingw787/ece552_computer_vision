@@ -6,7 +6,7 @@ Introduction
 
 Today, people increasingly rely on image processing algorithms. Given the increasing usage of image processing as well as demand for at least maintaining the same performance for image processing applications, demand for faster and higher performing algorithms will surely rise. Having a means in order to track performance of image processing algorithms will not only ensure that the optimizations promised by image processing are fulfilled by the hardware, but that slimmer programs will function on older-generation hardware helping to ensure backwards compatibility, among other benefits.  
 
-This paper describes the effort to benchmark image processing algorithms with PAPI, an open-source performance counter API, and infer the performance behind each of 
+This paper describes the effort to benchmark image processing algorithms with PAPI, an open-source performance counter API, and link the time and memory performance behind the algorithms themselves to the underlying hardware. Is there an architectural justification behind the particular implementation given? How could hardware specific for image processing be designed in order to maximize performance?   
 
 Overview 
 -------------
@@ -15,7 +15,7 @@ Overview
 
 This section will explain the different computer vision algorithms considered in benchmarking, as well as a discussion about how each is expected to perform relative to each other.  
 
-Code for the all functions in all three languages are listed in [Appendix A](https://github.com/yingw787/ece552_computer_vision/blob/master/APPENDIX_A.md). Programs are ideally as similar to each other as possible in order to minimize the number of high-level differences between them as possible. 
+Code for Sobel edge detection in Python and C++ is listed in [Appendix A](https://github.com/yingw787/ece552_computer_vision/blob/master/APPENDIX_A.md). Due to lack of understanding code for Sobel edge detection in OpenCL is not included. Programs are ideally as similar to each other as possible in order to minimize the number of high-level differences between them as possible. 
 
 ####Circular Hough Transforms 
 
@@ -33,7 +33,7 @@ An example of the Circular Hough Transform is given below:
 
 The Sobel operator is a discrete differentiation operator. It produces a gradient of the original image by convolving two Sobel kernels with the original image, for the x-gradient as well as the y-gradient. Calculating the gradient means changes in the pixel intensity in the image across the kernel are displayed more prominently, and edges will show up more. One can then bitwise or the returned results to create an overall gradient representation of the image. 
 
-This image processing algorithm can serve as a worthy benchmark since convolution involves multiplication and integration over every kernel in the image; examining performance counters may indicate whether Sobel is a performance-intensive task and act as a bottleneck in speedups. In addition, to what degree the algorithm can be parallelized remains an interesting question.
+This image processing algorithm can serve as a worthy benchmark since convolution involves multiplication and integration over every kernel in the image. In particular, finding out how integration is handled in machine code would prove interesting. Examining performance counters may indicate whether Sobel is a performance-intensive task and act as a bottleneck in speedups. In addition, to what degree the algorithm can be parallelized remains a worthy question.
 
 An example of the Sobel Edge Detection is given below:  
 
@@ -70,11 +70,15 @@ After the Python programs were tested, they were profiled with [line_profiler](h
 
 From the results in Appendix B, one notes that the calls to cv2.Sobel took about 700 to 800 milliseconds, while memory-wise the calls took about 0.5 to 0.7 MiB. 
 
-Unfortunately, since Python is compiled down to bytecode and run on a virtual machine, Python applications cannot be translated directly into machine instructions accurately, since the virtual machine masks much of the direct translation. A language compilable into an executable provides more accurate and relevant performance testing. C++ provides that kind of functionality along with being able to interface nicely with both OpenCV and PAPI. 
+#### Difficulties in Implementation
 
-C++ functions for PAPI were written, and they and the test output can be viewed [here](https://github.com/yingw787/ece552_computer_vision/blob/master/APPENDIX_F.md) and [here](https://github.com/yingw787/ece552_computer_vision/blob/master/APPENDIX_F.md). The current problem experienced with PAPI is that without the particular Makefile associated with the example directory, it was difficult for the compiler to link the requisite C++ to PAPI. 
+Unfortunately, since Python is compiled down to bytecode and run on a virtual machine, Python applications cannot be translated directly into machine instructions accurately, since the virtual machine masks much of the direct translation. A language compilable into an executable provides more accurate and relevant performance testing. C++ provides that kind of functionality along with being able to interface nicely with both OpenCV and PAPI. The author focused too much on the Python implementation and understanding OpenCV, and did not focus enough on gaining an understanding of the C++ and OpenCL implementations of the OpenCV implementations.
 
-One unanticipated issue resulted from the fact that IA64-Linux only specifies 4 48-bit performance counters; any more specified within a given process and executed would produce garbage output. As from Appendix D, there are 40 preset events that are available from PAPI on the specified hardware. 
+C++ functions for PAPI were written, and they and the test output can be viewed [here](https://github.com/yingw787/ece552_computer_vision/blob/master/APPENDIX_F.md) and [here](https://github.com/yingw787/ece552_computer_vision/blob/master/APPENDIX_F.md). The current problem experienced with PAPI is that without the particular Makefile associated with the example directory, it was difficult for the compiler to link the requisite C++ to PAPI. The difficulty in linking meant that OpenCV and PAPI could not run at the same time on the specified hardware in time. A greater understanding of C++ and Makefiles would have been extremely useful in this project. 
+
+One unanticipated issue resulted from the fact that IA64-Linux only specifies 4 48-bit performance counters; any more specified within a given process and executed would produce garbage output. As from Appendix D, there are 40 preset events that are available from PAPI on the specified hardware. With a process as comprehensive as image processing, it was difficult to narrow down which parameters were crucial to look at, and how to examine the necessary number of events at the same time was never established. A possible solution in running multiple versions of the program, each with the same test program but focusing on different performance counters, was considered but the inability to get OpenCV and PAPI working together made this a null point. 
+
+This leads to the consideration of the architectural impact, which for this project was too broad and could not be narrowed down successfully in time. It is difficult to examine what instructions an image processing routine will convert into, and which ones are architecturally significant, in determining performance bottlenecks. 
 
 Ultimately, the primary difficulty resulted in the limited amount of time available in order to conduct the experiment, as well as shifting priorities due to unprocessed difficulties. Given a possible redo, the author may examine himself to analyzing a purely architectural aspect of GPU acceleration, for example DMA for GPUs, that have a clearly defined scope, easy measurability, as well as architectural significance. 
 
@@ -83,10 +87,9 @@ Additional Exploration
 
 ### Architectural Simulators for GPGPUs
 
-#### gem5 
-
-
 #### gem5-gpu 
+
+
 
 
 
