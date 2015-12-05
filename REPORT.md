@@ -80,7 +80,18 @@ One unanticipated issue resulted from the fact that IA64-Linux only specifies 4 
 
 This leads to the consideration of the architectural impact, which for this project was too broad and could not be narrowed down successfully in time. It is difficult to examine what instructions an image processing routine will convert into, and which ones are architecturally significant, in determining performance bottlenecks. 
 
-Ultimately, the primary difficulty resulted in the limited amount of time available in order to conduct the experiment, as well as shifting priorities due to unprocessed difficulties. Given a possible redo, the author may examine himself to analyzing a purely architectural aspect of GPU acceleration, for example DMA for GPUs, that have a clearly defined scope, easy measurability, as well as architectural significance. 
+Ultimately, the primary difficulty resulted in the limited amount of time available in order to conduct the experiment, as well as shifting priorities due to unprocessed difficulties. 
+
+#### What I would redo given my current knowledge
+
+This project turned out to be unsuccessful in its initial goals of being able to infer performance of OpenCV-based image processing algorithms based on the underlying hardware. However, I did learn a good deal during the project; if I had the chance to do it again, I would: 
+
+- not focus on image processing algorithms; the application would serve as the benchmark for architectural optimization. Application optimization may result in non-general hardware; indeed the best way in order to optimize an application would be to create an ASIC for it. Only run the image processing algorithm to see how the hardware performs, and don't question the values if they appear to be generally valid. 
+- not focus necessarily on the GPU; much of the underlying hardware for the GPU changes over every single generation, and much of it is proprietary. 
+- given that off-chip computing is becoming more important, perhaps examining an I/O architectural aspect would be more rewarding. For example, comparing different types of DMA controllers (PCI, ISA, Cell, etc.) and seeing which implementation is more efficient may be useful information. In this case, the interested events will likely be L1/L2 cache accesses and hits.  
+- Definitely get a partner next time, no matter what.
+
+The priorities of a project of this particular type would be a clearly defined scope (in order to maintain focus on learning a particular language or library), extremely easy measurability (since it will not be easy anyways), and plenty of papers describing the different implementations of the desired architectural component (because it is nigh impossible to create an implementation individually and have it be even correct much less perform well). 
 
 Bibliography
 -------------
