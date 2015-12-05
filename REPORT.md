@@ -68,9 +68,11 @@ Running and deciding on image processing algorithm material was relatively trivi
 
 After the Python programs were tested, they were profiled with [line_profiler](https://github.com/rkern/line_profiler) and [memory_profiler](https://github.com/fabianp/memory_profiler). This provides a line-by-line detailing of how many times a function is called, and how much memory each function call takes up. The results of this testing for the Python benchmark can be seen in [Appendix B](https://github.com/yingw787/ece552_computer_vision/blob/master/APPENDIX_B.md). 
 
-From the results in Appendix B, one notes that the calls to cv2.Sobel took about 700 to 800 milliseconds, while memory-wise the calls took about 0.5 to 07 MiB. 
+From the results in Appendix B, one notes that the calls to cv2.Sobel took about 700 to 800 milliseconds, while memory-wise the calls took about 0.5 to 0.7 MiB. 
 
-Unfortunately, 
+Unfortunately, since Python is compiled down to bytecode and run on a virtual machine, Python applications cannot be translated directly into machine instructions accurately, since the virtual machine masks much of the direct translation. A language compilable into an executable provides more accurate and relevant performance testing. C++ provides that kind of functionality along with being able to interface nicely with both OpenCV and PAPI. 
+
+C++ functions for PAPI were written, and they and the test output can be viewed [here](https://github.com/yingw787/ece552_computer_vision/blob/master/APPENDIX_F.md) and [here](https://github.com/yingw787/ece552_computer_vision/blob/master/APPENDIX_F.md). The current problem experienced with PAPI is that without the particular Makefile associated with the example directory, it was difficult for the compiler to link the requisite C++ to PAPI. 
 
 One unanticipated issue resulted from the fact that IA64-Linux only specifies 4 48-bit performance counters; any more specified within a given process and executed would produce garbage output. As from Appendix D, there are 40 preset events that are available from PAPI on the specified hardware. 
 
@@ -80,7 +82,10 @@ Additional Exploration
 -------------
 
 ### Architectural Simulators for GPGPUs
+
 #### gem5 
+
+
 #### gem5-gpu 
 
 
