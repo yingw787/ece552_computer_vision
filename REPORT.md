@@ -82,17 +82,6 @@ This leads to the consideration of the architectural impact, which for this proj
 
 Ultimately, the primary difficulty resulted in the limited amount of time available in order to conduct the experiment, as well as shifting priorities due to unprocessed difficulties. Given a possible redo, the author may examine himself to analyzing a purely architectural aspect of GPU acceleration, for example DMA for GPUs, that have a clearly defined scope, easy measurability, as well as architectural significance. 
 
-Additional Exploration
--------------
-
-### Architectural Simulators for GPGPUs
-
-#### gem5-gpu 
-
-
-
-
-
 Bibliography
 -------------
 
